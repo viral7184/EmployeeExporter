@@ -6,18 +6,18 @@ pipeline {
     }
     stages {
         stage('Restore') {
-            steps { sh 'dotnet restore ${SOLUTION_NAME}' }
+            steps { bat "dotnet restore ${SOLUTION_NAME}" }
         }
         stage('Build') {
-            steps { sh 'dotnet build ${SOLUTION_NAME} --configuration Release --no-restore' }
+            steps { bat "dotnet build ${SOLUTION_NAME} --configuration Release --no-restore" }
         }
         stage('Test') {
-            steps { sh 'dotnet test ${SOLUTION_NAME} --configuration Release --no-build' }
+            steps { bat "dotnet test ${SOLUTION_NAME} --configuration Release --no-build" }
         }
         stage('Run') {
             steps {
                 dir('EmployeeExporter.Worker') {
-                    sh 'dotnet run --configuration Release --no-build'
+                    bat "dotnet run --configuration Release --no-build"
                 }
             }
         }
