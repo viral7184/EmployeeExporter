@@ -12,8 +12,15 @@ public class Worker(
         try
         {
             logger.LogInformation("Starting Employee CSV export process...");
-            var filePath = configuration["ExportSettings:OutputFilePath"] ?? "employees.csv";
-            
+            //var filePath = configuration["ExportSettings:OutputFilePath"] ?? "employees.csv";
+            var outputDirectory = configuration["ExportSettings:OutputDirectory"] ?? "Output";
+
+            Directory.CreateDirectory(outputDirectory);
+
+            var fileName = $"employees_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+
+            var filePath = Path.Combine(outputDirectory, fileName);
+
             var data = await dataRepository.GetEmployeeDataAsync();
             var employeeList = data.ToList();
             logger.LogInformation("Fetched {Count} employees. Generating CSV...", employeeList.Count);
