@@ -24,7 +24,7 @@ pipeline {
     }
     post {
         success {
-            archiveArtifacts artifacts: 'EmployeeExporter.Worker/employees.csv', allowEmptyArchive: false
+            archiveArtifacts artifacts: 'EmployeeExporter.Worker/Output/employees_*.csv', allowEmptyArchive: false
         }
     }
 }
